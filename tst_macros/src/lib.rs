@@ -18,10 +18,14 @@ pub fn make_derive_answer(_item: TokenStream) -> TokenStream {
 //this runs during compilation as you see the output at build not when running.
 #[proc_macro_attribute]
 pub fn return_as_is(_attr: TokenStream, item: TokenStream) -> TokenStream {
+    //these don't expand as expected
     println!("as is: {}", stringify!(item));
     println!("as is with literal: {}", proc_macro::Literal::string(stringify!(item)));
 
+    //this works as expected...
     println!("as is with literal to owned... {}", item.to_owned());
+
+    println!("as is with literal to to_string... {}", item.to_string());
     item
 }
 
@@ -35,7 +39,7 @@ pub fn show_streams(attr: TokenStream, item: TokenStream) -> TokenStream {
 
 
 //https://doc.rust-lang.org/book/ch19-06-macros.html
-
+//https://web.mit.edu/rust-lang_v1.25/arch/amd64_ubuntu1404/share/doc/rust/html/book/first-edition/procedural-macros.html
 
 #[proc_macro_derive(HelloMacro)]
 pub fn hello_macro_derive(input: TokenStream) -> TokenStream {

@@ -50,10 +50,19 @@ fn test() {
 }
 
 //https://doc.rust-lang.org/book/ch19-06-macros.html
-
+//also:  https://web.mit.edu/rust-lang_v1.25/arch/amd64_ubuntu1404/share/doc/rust/html/book/first-edition/procedural-macros.html
 
 struct Pancakes;
 
+pub trait HelloMacro {
+    fn hello_macro();
+}
+
+impl HelloMacro for Pancakes {
+    fn hello_macro() {
+        println!("Hello, Macro! My name is Pancakes!");
+    }
+}
 
 #[derive(tst_macros::HelloMacro)]
 struct OatMeal;
@@ -65,16 +74,12 @@ struct FrenchToast;
 struct Waffles;
 
 
-pub trait HelloMacro {
-    fn hello_macro();
+macro_rules! Foo {
+
+    () => { println!("macro_rules! can be in the same crate, Bar.") };
+    ($ex:expr) => { println!("macro_rules! can be in the same crate, Bar. {} -> {}", stringify!($ex), $ex) }
 }
 
-
-impl HelloMacro for Pancakes {
-    fn hello_macro() {
-        println!("Hello, Macro! My name is Pancakes!");
-    }
-}
 
 
 fn main() {
@@ -90,6 +95,12 @@ fn main() {
     OatMeal::hello_macro();
     FrenchToast::hello_macro();
     Waffles::hello_macro();
+
+    Foo!();
+
+    Foo!(true);
+    Foo!(77 * 11);
+    
 }
 
 #[test]
