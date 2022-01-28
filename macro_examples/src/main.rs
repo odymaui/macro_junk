@@ -82,7 +82,29 @@ macro_rules! Foo {
 
 
 
+macro_rules! adder {
+    //note {{}} otherwise it won't compile...
+    ($left:expr, $($right:expr),+) => {{
+
+        let mut total:i32 = $left;
+        $( 
+            total += $right;
+        )+
+        total
+
+    }}
+}
+
 fn main() {
+
+
+    //need at least two parameters.
+    //adder!(1); //.expect("Need at least two values separated by a comma...");
+    //can't expect as type returned by adder is number which isn't supported
+    println!("Result: {}", adder!(1,4)); //.expect("Need at least two values separated by a comma...");
+    println!("Result: {}", adder!(1,4,2)); //.expect("Need at least two values separated by a comma...");
+    println!("Result: {}", adder!(1,4,2,3)); //.expect("Need at least two values separated by a comma...");
+    println!("Result: {}", adder!(1,4,2, 4)); //.expect("Need at least two values separated by a comma...");
 
     println!("{}", answer());
 
@@ -100,7 +122,7 @@ fn main() {
 
     Foo!(true);
     Foo!(77 * 11);
-    
+   
 }
 
 #[test]
