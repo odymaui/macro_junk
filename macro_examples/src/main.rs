@@ -95,6 +95,19 @@ macro_rules! adder {
     }}
 }
 
+macro_rules! csv_split {
+    //note {{}} otherwise it won't compile...
+    ($left:expr, $($right:expr),+) => {{
+
+        println!("{}", $left);
+        //without $()+ : error: variable 'right' is still repeating at this depth
+        $(
+            println!("{}", $right);
+        )+
+
+    }}
+}
+
 fn main() {
 
 
@@ -122,6 +135,8 @@ fn main() {
 
     Foo!(true);
     Foo!(77 * 11);
+
+    csv_split!("foo", "bar", "baz");
    
 }
 
