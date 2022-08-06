@@ -10,6 +10,7 @@ pub fn make_answer(_item: TokenStream) -> TokenStream {
     "fn answer() -> u32 { 42 }".parse().unwrap()
 }
 
+//todo, figure out how to parse the token stream input to modify the funcion!
 #[proc_macro_derive(AnswerFn)]
 pub fn make_derive_answer(_item: TokenStream) -> TokenStream {
     "fn answer_derive() -> u32 { 42 }".parse().unwrap()
@@ -40,6 +41,7 @@ pub fn show_streams(attr: TokenStream, item: TokenStream) -> TokenStream {
 
 //https://doc.rust-lang.org/book/ch19-06-macros.html
 //https://web.mit.edu/rust-lang_v1.25/arch/amd64_ubuntu1404/share/doc/rust/html/book/first-edition/procedural-macros.html
+
 
 #[proc_macro_derive(HelloMacro)]
 pub fn hello_macro_derive(input: TokenStream) -> TokenStream {
